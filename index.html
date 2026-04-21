@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hosted Timesheet App Starter</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=cabinet-grotesk@500,700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem;
+      --color-bg:#f7f6f2; --color-surface:#f9f8f5; --color-surface-2:#fbfbf9; --color-surface-offset:#f3f0ec; --color-border:#d4d1ca;
+      --color-text:#28251d; --color-text-muted:#66645f; --color-text-inverse:#f9f8f4; --color-primary:#01696f; --color-success:#437a22;
+      --radius-md:.5rem; --radius-lg:.75rem; --radius-xl:1rem; --radius-full:9999px; --shadow-sm:0 1px 2px rgba(40,37,29,.06);
+      --font-body:'Satoshi', Inter, sans-serif; --font-display:'Cabinet Grotesk', Inter, sans-serif;
+    }
+    [data-theme="dark"] { --color-bg:#171614; --color-surface:#1c1b19; --color-surface-2:#201f1d; --color-surface-offset:#23211f; --color-border:#393836; --color-text:#ece9e2; --color-text-muted:#b0aca4; --color-text-inverse:#171614; --color-primary:#4f98a3; --color-success:#7bb15b; }
+    *{box-sizing:border-box} body{margin:0;background:var(--color-bg);color:var(--color-text);font:var(--text-base)/1.5 var(--font-body)} button,input,select{font:inherit;color:inherit} button{cursor:pointer}
+    .app{max-width:1180px;margin:0 auto;padding:var(--space-4)} .topbar,.toolbar,.grid,.cards{display:flex;gap:var(--space-4);flex-wrap:wrap}.topbar{justify-content:space-between;align-items:center;padding:var(--space-4) 0 var(--space-8)}
+    .brand{display:flex;align-items:center;gap:var(--space-3)} .logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--color-primary),color-mix(in oklab,var(--color-primary) 55%, white));display:grid;place-items:center;color:white}
+    h1,h2,h3,p{margin:0}.brand h1,.hero h2{font-family:var(--font-display);letter-spacing:-.03em}.brand h1{font-size:var(--text-xl)} .hero h2{font-size:clamp(1.8rem,1.2rem + 1vw,2.5rem);margin:.4rem 0 .75rem}
+    .sub,.muted{color:var(--color-text-muted)} .btn{padding:.85rem 1rem;border-radius:var(--radius-full);border:1px solid color-mix(in oklab,var(--color-text) 12%, transparent);background:var(--color-surface);min-height:44px} .btn.primary{background:var(--color-primary);color:var(--color-text-inverse);border-color:var(--color-primary)}
+    .panel{background:var(--color-surface);border:1px solid color-mix(in oklab,var(--color-text) 12%, transparent);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm)} .hero,.plan,.stack{display:grid;gap:var(--space-4)} .hero{grid-template-columns:1.2fr .9fr} .plan{grid-template-columns:1fr 1fr} .stack{padding:var(--space-6)}
+    .field{display:flex;flex-direction:column;gap:var(--space-2)} label{font-size:var(--text-sm);font-weight:700} input,select{width:100%;padding:.85rem .95rem;border-radius:var(--radius-md);border:1px solid var(--color-border);background:var(--color-surface-2)}
+    .cards{align-items:stretch}.card{flex:1 1 220px;padding:var(--space-4);background:var(--color-surface-offset);border-radius:var(--radius-lg)} .mini{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);font-weight:700}
+    .code{font-family:ui-monospace,SFMono-Regular,monospace;background:var(--color-surface-offset);padding:var(--space-3);border-radius:var(--radius-md);overflow:auto} ul{margin:0;padding-left:1.1rem} li+li{margin-top:.45rem}
+    @media (max-width:900px){.hero,.plan{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 3v6M17 3v6M6 11h12v9H6z"></path></svg></div>
+        <div>
+          <h1>Hosted Timesheet App</h1>
+          <div class="sub">Starter plan for employee logins and manager approvals.</div>
+        </div>
+      </div>
+      <div class="toolbar"><button class="btn" data-theme-toggle type="button">Theme</button><button class="btn primary" type="button" id="copyBtn">Copy stack summary</button></div>
+    </header>
+
+
+    <section class="hero">
+      <div class="panel stack hero">
+        <div>
+          <div class="mini">Recommended build</div>
+          <h2>Move this into a real hosted web app with logins, saved submissions, and manager approvals.</h2>
+          <p class="muted">For your team, the cleanest setup is a hosted app where employees sign in, submit weekly time by client and project, and managers review entries in one shared dashboard.</p>
+        </div>
+        <div class="cards">
+          <div class="card"><div class="mini">Hosting</div><strong>Vercel or Netlify</strong><p class="muted">Fast deployment for the web front end.</p></div>
+          <div class="card"><div class="mini">Login</div><strong>Supabase Auth</strong><p class="muted">Employee and manager sign-in with role control.</p></div>
+          <div class="card"><div class="mini">Database</div><strong>Supabase Postgres</strong><p class="muted">Central timesheet records, clients, projects, and approvals.</p></div>
+        </div>
+      </div>
+      <aside class="panel stack">
+        <div class="field"><label>App URL employees use</label><input value="https://your-timesheet-app.vercel.app" readonly></div>
+        <div class="field"><label>Employee login flow</label><input value="Email + password or magic link" readonly></div>
+        <div class="field"><label>Manager access</label><input value="Role-based dashboard after login" readonly></div>
+        <div class="field"><label>Core workflow</label><input value="Sign in → choose week → log client/project time → submit" readonly></div>
+      </aside>
+    </section>
+
+
+    <section class="plan" style="margin-top:var(--space-4)">
+      <div class="panel stack">
+        <div class="mini">What employees do</div>
+        <ul>
+          <li>Open one live web link in any browser.</li>
+          <li>Sign in with their company email and password or a one-time login link.</li>
+          <li>Select the week, choose client and project dropdowns, enter daily hours, and submit.</li>
+          <li>View their own past timesheets and submission status.</li>
+        </ul>
+      </div>
+      <div class="panel stack">
+        <div class="mini">What managers do</div>
+        <ul>
+          <li>Sign in through the same app URL.</li>
+          <li>See all employee submissions in one dashboard.</li>
+          <li>Approve, reject, or export timesheets by week, employee, client, or project.</li>
+          <li>Manage the client list, project list, and employee access.</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <section class="plan" style="margin-top:var(--space-4)">
+      <div class="panel stack">
+        <div class="mini">Database tables</div>
+        <div class="code">users (id, name, email, role)
+clients (id, name)
+projects (id, client_id, name)
+timesheets (id, user_id, week_of, approver_id, status, submitted_at)
+time_entries (id, timesheet_id, client_id, project_id, mon, tue, wed, thu, fri, sat, sun, total_hours)</div>
+      </div>
+      <div class="panel stack">
+        <div class="mini">Recommended next build</div>
+        <div class="code" id="stackText">Frontend: Next.js web app
+Auth: Supabase Auth
+Database: Supabase Postgres
+Hosting: Vercel
+Roles: employee, manager, admin
+Features: weekly timesheets, client/project dropdowns, approvals, exports</div>
+      </div>
+    </section>
+  </div>
+  <script>
+    (function(){
+      const root = document.documentElement;
+      let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+      const toggle = document.querySelector('[data-theme-toggle]');
+      toggle.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+      toggle.addEventListener('click', () => {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', theme);
+        toggle.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+      });
+      document.getElementById('copyBtn').addEventListener('click', async () => {
+        const text = document.getElementById('stackText').textContent.trim();
+        try { await navigator.clipboard.writeText(text); document.getElementById('copyBtn').textContent = 'Copied'; }
+        catch { document.getElementById('copyBtn').textContent = 'Copy failed'; }
+      });
+    })();
+  </script>
+</body>
+</html>
